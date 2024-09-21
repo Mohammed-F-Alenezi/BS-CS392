@@ -26,7 +26,7 @@ export default function App() {
           </Text>
           <CustomButton
             title={"Countine with email "}
-            onPress={() => router.push("/home")}
+            onPress={() => router.push("/sign-in")}
             containerStyle="w-full mt-7"
           />
         </View>

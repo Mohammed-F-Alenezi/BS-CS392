@@ -14,7 +14,7 @@ import { useState } from "react";
 import logo from "../../assets/images/logo.png";
 import CustomButton from "../../components/CustomButton";
 import { Link, router } from "expo-router";
-import { createUser } from "../../lib/appwrite";
+import axios from "axios";
 
 const SignUp = () => {
   const [form, setForm] = useState({
@@ -29,8 +29,15 @@ const SignUp = () => {
     }
     setIsSubmitting(true);
     try {
-      const result = createUser(form.email, form.password, form.username);
-      router.replace('/home')
+      axios.post("http://192.168.3.37:8082/sign-up", form).then((res) => {
+        if (res.data.status === "ok") {
+          console.log(res.data);
+          router.replace("/home");
+        } else {
+          console.log(res.data);
+          Alert.alert("Error", "User already exists");
+        }
+      });
     } catch (error) {
       Alert.alert("Error", error.message);
     } finally {

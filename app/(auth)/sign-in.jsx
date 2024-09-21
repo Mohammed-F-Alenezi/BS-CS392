@@ -14,7 +14,8 @@ import { useState } from "react";
 import logo from "../../assets/images/logo.png";
 import CustomButton from "../../components/CustomButton";
 import { Link, router } from "expo-router";
-import { signIn } from "../../lib/appwrite";
+import axios from "axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const SignIn = () => {
   const [form, setForm] = useState({
@@ -26,10 +27,21 @@ const SignIn = () => {
     if (!form.email || !form.password) {
       Alert.alert("Error", "Please fill in all the fields");
     }
+    const userData = {
+      email: form.email,
+      password: form.password,
+    };
     setIsSubmitting(true);
     try {
-      await signIn(form.email, form.password);
-      router.replace("/home");
+      axios.post("http://192.168.3.37:8082/sign-in", userData).then((res) => {
+        if (res.data.status === "ok") {
+          AsyncStorage.setItem("token", res.data.data);
+          router.replace("/home");
+        } else {
+          console.log(res.data);
+          Alert.alert("Error", "User doesn't exists");
+        }
+      });
     } catch (error) {
       Alert.alert("Error", error.message);
     } finally {
