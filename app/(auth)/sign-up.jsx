@@ -29,13 +29,13 @@ const SignUp = () => {
     }
     setIsSubmitting(true);
     try {
-      axios.post("http://192.168.3.37:8082/sign-up", form).then((res) => {
+      axios.post("http://192.168.3.190:8082/sign-up", form).then((res) => {
         if (res.data.status === "ok") {
-          console.log(res.data);
+          console.log(res.data.message);
           router.replace("/home");
-        } else {
-          console.log(res.data);
-          Alert.alert("Error", "User already exists");
+        } else if (res.data.status === "error") {
+          console.log(res.data.message);
+          Alert.alert("Error", res.data.message);
         }
       });
     } catch (error) {

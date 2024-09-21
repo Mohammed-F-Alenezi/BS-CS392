@@ -33,7 +33,7 @@ const SignIn = () => {
     };
     setIsSubmitting(true);
     try {
-      axios.post("http://192.168.3.37:8082/sign-in", userData).then((res) => {
+      axios.post("http://192.168.3.190:8082/sign-in", userData).then((res) => {
         if (res.data.status === "ok") {
           AsyncStorage.setItem("token", res.data.data);
           router.replace("/home");

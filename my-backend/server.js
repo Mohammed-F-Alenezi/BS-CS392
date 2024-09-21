@@ -2,27 +2,20 @@ const express = require("express");
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-// const cors = require("cors");
-// const bodyParser = require("body-parser");
+const app = express();
+app.use(express.json());
 const dotenv = require("dotenv");
 require("./UserModel");
 dotenv.config();
 
-const app = express();
-const PORT = process.env.PORT || 5000;
-app.use(express.json());
+const PORT = 8082;
+
 const JWT_SERCRET = process.env.JWT_SERCRET;
 
-// Middleware
-// app.use(cors());
-// app.use(bodyParser.json());
-
 // MongoDB Connection
+
 mongoose
-  .connect(process.env.MONGO_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
+  .connect(process.env.MONGO_URI)
   .then(() => console.log("MongoDB connected"))
   .catch((err) => console.log(err));
 const User = mongoose.model("User");
@@ -33,7 +26,7 @@ app.post("/sign-up", async (req, res) => {
   const { username, email, password } = req.body;
   const oldUser = await User.findOne({ email: email });
   if (oldUser) {
-    return res.send({ data: "User already exists" });
+    return res.json({ status: "error", message: "User already exists" });
   }
   const encryptedPassword = await bcrypt.hash(password, 10);
   try {
@@ -42,7 +35,7 @@ app.post("/sign-up", async (req, res) => {
       email: email,
       password: encryptedPassword,
     });
-    res.send({ status: "ok ", data: "User created" });
+    res.json({ status: "ok", message: "User created" });
   } catch (error) {
     res.send({ status: "error", data: error });
   }
