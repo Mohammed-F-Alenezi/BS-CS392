@@ -1,0 +1,16 @@
+ 1109  npm install expo\n
+ 1110  npx expo start\n
+ 1111  cd Banking-System
+ 1112  npm start
+ 1113  cd Banking-System
+ 1114  expo start -c
+ 1115  npx expo start -c
+ 1116  cd Banking-System
+ 1117  npm install @supabase/supabase-js\n
+ 1118  cd Banking-System
+ 1119  npm update appwrite\n
+ 1120  clear
+ 1121  npm install @rneui/themed @rneui/base
+ 1122  npm install react-native-vector-icons\n\n
+ 1123  npx react-native link react-native-vector-icons
+ 1124  clear
