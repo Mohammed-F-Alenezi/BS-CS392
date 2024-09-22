@@ -1,8 +1,7 @@
-const mongoose = require("mongoose");
-const AccountModel = new mongoose.Schema({
-  account_type: { type: String, required: true },
-  balance: { type: Number, required: true },
-  user: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
-});
+// const mongoose = require("mongoose");
+// const AccountModel = new mongoose.Schema({
+//   account_type: { type: String, required: true },
+//   balance: { type: Number, required: true, min: 0 },
+// });
 
-module.exports = mongoose.model("Account", AccountModel);
+// module.exports = mongoose.model("Account", AccountModel);

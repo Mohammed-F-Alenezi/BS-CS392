@@ -34,6 +34,7 @@ app.post("/sign-up", async (req, res) => {
       username: username,
       email: email,
       password: encryptedPassword,
+      accounts: [],
     });
     res.json({ status: "ok", message: "User created" });
   } catch (error) {
@@ -48,8 +49,8 @@ app.post("/sign-in", async (req, res) => {
   }
   if (await bcrypt.compare(password, oldUser.password)) {
     const token = jwt.sign({ email: oldUser.email }, JWT_SERCRET);
-    if (res.status(201)) {
-      return res.send({ status: "ok", data: token });
+    if (res.status(200)) {
+      return res.send({ status: 200, data: token });
     } else {
       res.send({ error: "error" });
     }
