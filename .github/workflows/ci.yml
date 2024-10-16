@@ -15,14 +15,14 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [14.x, 16.x]
+        node-version: [18.x, 20.x]  # Updated to newer versions
 
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3  # Updated to v3 for stability
 
       - name: Set up Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3  # Updated to v3
         with:
           node-version: ${{ matrix.node-version }}
 
@@ -37,10 +37,10 @@ jobs:
 
       - name: Generate Coverage Report
         run: npm run coverage
-        continue-on-error: true
+        continue-on-error: true  # Allow coverage to run even if tests fail
 
-      - name: Upload Test Report  # Updated to use v3
-        uses: actions/upload-artifact@v3
+      - name: Upload Test Report
+        uses: actions/upload-artifact@v3  # Updated to v3
         with:
           name: test-report
           path: coverage/
