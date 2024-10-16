@@ -1,5 +1,4 @@
 module.exports = {
-    testMatch: ['**/__tests__/**/*.js?(x)', '**/?(*.)+(spec|test).[tj]s?(x)'],  // Match test files
-    testPathIgnorePatterns: ['/node_modules/'],  
-  };
-  
+  testMatch: ["**/__tests__/**/*.js?(x)", "**/?(*.)+(spec|test).[tj]s?(x)"], // Default test patterns
+  testPathIgnorePatterns: ["/node_modules/"], // Ignore node_modules
+};
