@@ -6,7 +6,7 @@ const User = require("../my-backend/UserModel"); // Assuming User is your User m
 const bcrypt = require("bcrypt");
 
 // Mock the User model and bcrypt
-jest.mock("../models/User");
+jest.mock("../my-backend/UserModel");
 jest.mock("bcrypt");
 
 describe("POST /sign-up", () => {
