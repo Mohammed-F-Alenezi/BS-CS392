@@ -13,15 +13,19 @@ const PORT = 8082;
 const JWT_SERCRET = process.env.JWT_SERCRET;
 
 // MongoDB Connection
+if (process.env.NODE_ENV !== "test") {
+  mongoose
+    .connect(process.env.MONGO_URI)
+    .then(() => console.log("MongoDB connected"))
+    .catch((err) => console.log(err));
+}
 
-mongoose
-  .connect(process.env.MONGO_URI)
-  .then(() => console.log("MongoDB connected"))
-  .catch((err) => console.log(err));
 const User = mongoose.model("User");
+
 app.get("/", (req, res) => {
   res.send("Backend is running!");
 });
+
 app.post("/sign-up", async (req, res) => {
   const { username, email, password } = req.body;
   const oldUser = await User.findOne({ email: email });
@@ -41,11 +45,12 @@ app.post("/sign-up", async (req, res) => {
     res.send({ status: "error", data: error });
   }
 });
+
 app.post("/sign-in", async (req, res) => {
   const { email, password } = req.body;
   const oldUser = await User.findOne({ email: email });
   if (!oldUser) {
-    return res.send({ data: "User doesn't exists" });
+    return res.send({ data: "User doesn't exist" });
   }
   if (await bcrypt.compare(password, oldUser.password)) {
     const token = jwt.sign({ email: oldUser.email }, JWT_SERCRET);
@@ -56,6 +61,7 @@ app.post("/sign-in", async (req, res) => {
     }
   }
 });
+
 app.post("/userdata", async (req, res) => {
   const { token } = req.body;
   try {
@@ -72,4 +78,5 @@ app.post("/userdata", async (req, res) => {
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
+
 module.exports = app;

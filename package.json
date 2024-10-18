@@ -7,7 +7,7 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "test": "jest",
+     "test": "NODE_ENV=test jest",
     "coverage": "jest --coverage",
     "lint": "eslint ."
   },
@@ -41,6 +41,7 @@
     "eslint-plugin-react": "^7.37.1",
     "globals": "^15.11.0",
     "jest": "^27.5.1",
+    "mockingoose": "^2.16.2",
     "supertest": "^7.0.0",
     "tailwindcss": "^3.3.2"
   },
